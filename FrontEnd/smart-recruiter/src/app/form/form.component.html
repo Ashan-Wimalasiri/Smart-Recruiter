@@ -1,7 +1,10 @@
-<div class="flex flex-column">
-    <app-user-nav></app-user-nav>
+<div class="container">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <app-user-nav></app-user-nav>
+        </div>
+    </div>
     <div class="form-style">
-
         <div class="grid top-overlay" *ngIf="formSVC.formSubmitted">
             <div class="col-12">
                 <div class="ml-auto">
@@ -18,7 +21,7 @@
             </div>
         </div>
 
-        <div>
+        <div [style]="{'margin-top' : '55px'}">
             <h1 class="text-center h1-form">Join Our Team !</h1>
             <p class="text-center custom-para">Fill the following form, and we'll inform you shortly if you are shortlisted.</p>
         </div>

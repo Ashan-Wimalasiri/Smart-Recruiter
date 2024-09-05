@@ -16,7 +16,7 @@ export class AuthenticationService {
     {name: "jlk", email: "lklj@gmail.com", password: "fdgdfg", role: "user"},
     {email : "a", password : 'a', name : 'a', role : 'admin'},
     {email : "abc@lbfinance.lk", password : '123@', name : 'abc', role : 'admin'},
-    {email : "ashan.wimalasiri@gmail.com", password : '1234', name : 'ashan', role : 'admin'},
+    {email : "ashan.wimalasiri@gmail.com", password : '1234', name : 'Ashan', role : 'admin'},
   ];
 
   //methods

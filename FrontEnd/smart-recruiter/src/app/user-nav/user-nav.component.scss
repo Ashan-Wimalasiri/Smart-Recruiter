@@ -1,9 +1,11 @@
 .custom-navbar{
     background-color: white;
-    display: flex;
+    // display: flex;
     align-items: center;
     height: 55px;
-    // height: 70px;
+    position : fixed;
+    width: 100%;
+    z-index: 1000;
     .navbar-icon {
         height: 55px;
         margin-right: 10px;

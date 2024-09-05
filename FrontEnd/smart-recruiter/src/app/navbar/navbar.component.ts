@@ -14,6 +14,7 @@ export class NavbarComponent {
   }
 
   getCurrentUserName(): string {
+    // console.log(this.autheService.getCurrentUserName());
     return this.autheService.getCurrentUserName();
   }
 
