@@ -24,7 +24,7 @@ export class SlidersService {
     if (comment){ // If comment has non empty string this is going to store the comment
 
       // write the logic to fetch admin id
-      const adminId = 5;
+      const adminId = 1;
       // Take the RoleId of a candidate by Candidate Id
       const data : Observable<number> = this.http.get<number>(`api/Candidate/getRoleIdByCandidateId/${candidateId}`);
       this.roleId = await firstValueFrom(data);
