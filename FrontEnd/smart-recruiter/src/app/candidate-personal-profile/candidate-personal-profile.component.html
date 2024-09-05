@@ -11,8 +11,184 @@
         <!-- add margin top for the nav bar -->
         <div class="col-10 -ml-4" [style]="{'margin-top' : '55px'}">
             <div class="grid">
-                <div class="col-3">
+                <div class="col-12">
                     <!-- notification popup -->
+                    <div class="floating-card-container" *ngIf = "isSelected">    
+                        <p-card [style]="{'background-color':'var(--green-200)', 
+                                        'height':'65px', 
+                                        'width': '110%'}">
+                            <div class="-mt-3">
+                                Candidate is selected to the next interview.
+                            </div>
+                        </p-card>     
+                    </div>
+                    <div class="floating-card-container" *ngIf = "isRejected">    
+                        <p-card [style]="{'background-color':'var(--red-400)',
+                                        'color': 'white', 
+                                        'height':'65px', 
+                                        'width': '130%'}">
+                            <div class="-mt-3">
+                                Candidate is rejected.
+                            </div>
+                        </p-card>     
+                    </div>
+
+                    <p-card styleClass="mt-3" *ngIf="isloaded">
+                        <div class="grid">
+                            <div class="col-12">
+                                <!-- <div class="grid -mt-2">
+                                    <div class="col-12 flex justify-content-center">
+                                        <a href="{{candidate.linkedIn}}" target="_blank"><i class="fa-brands fa-linkedin fa-2xl" style="color: #0562a8;"></i></a>
+                                        <a href="{{candidate.gitHub_Link}}" target="_blank"><i class="fa-brands fa-square-github fa-2xl ml-3" style="color: #000000;"></i></a>
+                                        <a href="#" (click)="showCvDialog($event)"><i class="fa-solid fa-link fa-xl ml-3" style="color: #000000;"></i></a>
+                                    </div>
+                                </div> -->
+                                <!-- <p-divider /> -->
+                                <div class="grid">
+                                    <div class="col-12 mb-2 mt-0">
+                                        <div class="name">
+                                            <h1 class="text-center">{{candidate.name}}</h1>
+                                        </div>
+                                        <div>
+                                            <!-- fix the postion of a candidate replacement -->
+                                            <h3 class="text-center opacity-reduce position -mt-3" *ngIf="candidate.role_Id===6; else showCandidateH">Software Engineering Intern</h3>
+                                            <ng-template #showCandidateH>
+                                                <h3 class="text-center opacity-reduce position -mt-3">Software Engineering Intern Candidate</h3>
+                                            </ng-template>                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <div class="grid">
+                                            <div class="col-12 mb-3">
+                                                <i class="fa-solid fa-envelope fa-xl" style="color: #000000;"></i>
+                                                <a href="" class="ml-2">{{candidate.email}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-12 mb-3">
+                                                <i class="fa-solid fa-phone fa-lg" style="color: #000000;"></i>
+                                                <span class="ml-2">{{candidate.contact}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="grid">
+                                            <div class="col-4 col-offset-8">
+                                                <div class="grid -mt-2">
+                                                    <div class="col-12 flex justify-content-center">
+                                                        <a href="{{candidate.linkedIn}}" target="_blank"><i class="fa-brands fa-linkedin fa-2xl" style="color: #0562a8;"></i></a>
+                                                        <a href="{{candidate.gitHub_Link}}" target="_blank"><i class="fa-brands fa-square-github fa-2xl ml-3" style="color: #000000;"></i></a>
+                                                        <a href="#" (click)="showCvDialog($event)"><i class="fa-solid fa-link fa-xl ml-3" style="color: #000000;"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p-divider />
+                                <div class="grid">
+                                    <div class="col-12">
+                                        <h3 class="-mt-1">Skills</h3>
+                                        <div class="opacity-reduce">
+                                            {{candidate.skills}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <p-divider />
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <h5 class="-mt-2">Highest Education</h5>
+                                        <div class="opacity-reduce -mt-2">
+                                            {{candidate.degree}}
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-offset-2">
+                                        <h5 class="-mt-2">Available Date</h5>
+                                        <div class="opacity-reduce -mt-2">
+                                            {{candidate.available_Date | slice:0:10}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <p-divider /> -->
+                                <div class="grid mt-3">
+                                    <div class="col-6 text-right">
+                                        <p-button 
+                                            label="Call First Interview" 
+                                            severity="success" 
+                                            [rounded]="false" 
+                                            *ngIf="candidate.role_Id===7 || candidate.role_Id===0" 
+                                            (onClick)="updateRoleId(candidate.id, 1)">
+                                        </p-button> 
+                                        <p-button 
+                                            label="Offered" 
+                                            severity="success" 
+                                            [rounded]="false" 
+                                            *ngIf="candidate.role_Id===6" 
+                                            [disabled]="candidate.role_Id === 6"
+                                            (onClick)="updateRoleId(candidate.id, candidate.role_Id + 1)">
+                                        </p-button>                             
+                                        <!-- <ng-template #showOther> -->
+                                            <p-button 
+                                            label="Call Next Interview" 
+                                            severity="success" 
+                                            [rounded]="false"    
+                                            *ngIf="candidate.role_Id !== 6 && candidate.role_Id !== 7 && candidate.role_Id !== 0"                             
+                                            (onClick)="updateRoleId(candidate.id, candidate.role_Id + 1)"/>
+                                        <!-- </ng-template>                            -->
+                                    </div>
+                                    <div class="col-6">
+                                        <p-button label="Reject" severity="danger" [rounded]="false" (onClick)="updateRoleId(candidate.id, 7)" *ngIf="candidate.role_Id!=7"/>
+                                        <p-button label="Rejected" severity="danger" [rounded]="false" *ngIf="candidate.role_Id===7" (onClick)="updateRoleId(candidate.id, 7)" [disabled]="candidate.role_Id === 7"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+                
+            </div>
+
+            <div class="grid">
+                <div class="col-12">
+                    <app-sliders [candidate] = "candidate"></app-sliders>
+                </div>                
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <app-pie-chart></app-pie-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isloaded">
+    <app-pdf-view [visibility] = "visibility" [candidateId]="candidate?.id" (dialogHide)="dialogHide()"></app-pdf-view>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <app-navbar></app-navbar>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-2 pl-0 pb-0">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-10 -ml-4" [style]="{'margin-top' : '55px'}">
+            <div class="grid">
+                <div class="col-3">
                     <div class="floating-card-container" *ngIf = "isSelected">    
                         <p-card [style]="{'background-color':'var(--green-200)', 
                                         'height':'65px', 
@@ -48,10 +224,9 @@
                                     <h1 class="text-center">{{candidate.name}}</h1>
                                 </div>
                                 <div>
-                                    <!-- fix the postion of a candidate replacement -->
                                     <h3 class="text-center opacity-reduce position -mt-3" *ngIf="candidate.role_Id===6; else showCandidateH">Software Engineering Intern</h3>
                                     <ng-template #showCandidateH>
-                                        <h3 class="text-center opacity-reduce position -mt-3">QA Engineering Intern Candidate</h3>
+                                        <h3 class="text-center opacity-reduce position -mt-3">Software Engineering Intern Candidate</h3>
                                     </ng-template>                        
                                 </div>
                                 <div class="grid">
@@ -107,14 +282,12 @@
                                             [disabled]="candidate.role_Id === 6"
                                             (onClick)="updateRoleId(candidate.id, candidate.role_Id + 1)">
                                         </p-button>                             
-                                        <!-- <ng-template #showOther> -->
                                             <p-button 
                                             label="Call Next Interview" 
                                             severity="success" 
                                             [rounded]="false"    
                                             *ngIf="candidate.role_Id !== 6 && candidate.role_Id !== 7 && candidate.role_Id !== 0"                             
                                             (onClick)="updateRoleId(candidate.id, candidate.role_Id + 1)"/>
-                                        <!-- </ng-template>                            -->
                                     </div>
                                     <div class="col-6">
                                         <p-button label="Reject" severity="danger" [rounded]="false" (onClick)="updateRoleId(candidate.id, 7)" *ngIf="candidate.role_Id!=7"/>
@@ -138,7 +311,7 @@
 
 <div *ngIf="isloaded">
     <app-pdf-view [visibility] = "visibility" [candidateId]="candidate?.id" (dialogHide)="dialogHide()"></app-pdf-view>
-</div>
+</div> -->
 
 
 <!-- https://www.behance.net/gallery/181759867/Candidate-profile-screen/modules/1026735177 -->
