@@ -1,71 +1,81 @@
 <div class="grid">
     <div class="col-12">
-        <div class="grid">
-            <div class="col-12">
-                <h2 class="mb-1">Summary</h2>
+        <p-card>
+            <div class="grid">
+                <div class="col-12">
+                    <h2 class="mb-1 mt-0">Summary</h2>
+                </div>
             </div>
-        </div>
-        <div class="grid">
-            <div class="col-12">
-                <h6 class="my-1"> Displaying all the marks earned from interviewers </h6>
-            </div>
-        </div>
-        <div class="grid" *ngIf="pieChartDataLoaded">
-            <div class="col-12">
-                <p-tabView (onChange)="changeDetection()">
-                    <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title" [disabled]="tab.isDisabled">
-                        <div class="grid">
-                            <div class="col-12 justify-content-center flex">
-                                <p-knob [ngModel]="tab.finalScore" valueTemplate="{value}%" [readonly]="true" valueColor="#4cd07d"/>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="col-12">
-                                <div class="card flex justify-content-center">
-                                    <p-chart type="doughnut" [data]="tab.data" [options]="tab.options" [style]="{'width': '80%', 'height' : '90%'}"/>
-                                </div>
-                            </div>
-                        </div>
-                    </p-tabPanel>
-                </p-tabView>
-            </div>
-        </div>
-        <p-divider />
-        <div class="grid">
-            <div class="col-12">
-                <p-fieldset>
-                    <ng-template pTemplate="header">
-                        <!-- <div class="flex align-items-center gap-2 px-2"> -->
-                            <span class="font-bold">Comments</span>
-                        <!-- </div> -->
-                    </ng-template>
-                    <div *ngFor="let comment of comments">
-                        <p-accordion [multiple]="true" [activeIndex]="[]">
-                            <p-accordionTab header="{{ comment.name }}" [style]="{'font-weight': 'normal'}">
-                                <p>
-                                    {{ comment.comment }}
-                                </p>
-                            </p-accordionTab>
-                        </p-accordion>
-                    </div>
+            <div class="grid">
+                <div class="col-6">
                     <div class="grid">
-                        <div class="col">
-                            <p *ngIf="!comments || comments.length === 0" class="no-data">No comments available.</p>
+                        <div class="col-12">
+                            <div class="my-1"> Marks earned by candidates </div>
+                            <!-- <h5 class="my-1"> Marks earned by candidates </h5> -->
                         </div>
                     </div>
-                </p-fieldset>
-
-                <!-- <div class="comment-sec">Comments</div>
-                <div *ngFor="let comment of comments">
-                    <p-accordion [multiple]="true" [activeIndex]="[]">
-                        <p-accordionTab header="{{ comment.name }}" [style]="{'font-weight': 'normal'}">
-                            <p>
-                                {{ comment.comment}}
-                            </p>
-                        </p-accordionTab>
-                    </p-accordion>
-                </div> -->
+                    <div class="grid" *ngIf="pieChartDataLoaded">
+                        <div class="col-12">
+                            <p-tabView (onChange)="changeDetection()">
+                                <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title" [disabled]="tab.isDisabled">
+                                    <div class="grid">
+                                        <div class="col-12 justify-content-center flex">
+                                            <p-knob [ngModel]="tab.finalScore" valueTemplate="{value}%" [readonly]="true" valueColor="#4cd07d"/>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <div class="card flex justify-content-center">
+                                                <p-chart type="doughnut" [data]="tab.data" [options]="tab.options" [style]="{'width': '50%', 'height' : '50%'}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p-tabPanel>
+                            </p-tabView>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 comment-style">
+                    <div class="grid">
+                        <div class="col-12">
+                            <p-fieldset>
+                                <ng-template pTemplate="header">
+                                    <!-- <div class="flex align-items-center gap-2 px-2"> -->
+                                        <span class="font-bold">Comments</span>
+                                    <!-- </div> -->
+                                </ng-template>
+                                <div *ngFor="let comment of comments">
+                                    <p-accordion [multiple]="true" [activeIndex]="[]">
+                                        <p-accordionTab header="{{ comment.name }}" [style]="{'font-weight': 'normal'}">
+                                            <p>
+                                                {{ comment.comment }}
+                                            </p>
+                                        </p-accordionTab>
+                                    </p-accordion>
+                                </div>
+                                <div class="grid">
+                                    <div class="col">
+                                        <p *ngIf="!comments || comments.length === 0" class="no-data">No comments available.</p>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+            
+                            <!-- <div class="comment-sec">Comments</div>
+                            <div *ngFor="let comment of comments">
+                                <p-accordion [multiple]="true" [activeIndex]="[]">
+                                    <p-accordionTab header="{{ comment.name }}" [style]="{'font-weight': 'normal'}">
+                                        <p>
+                                            {{ comment.comment}}
+                                        </p>
+                                    </p-accordionTab>
+                                </p-accordion>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <!-- <p-divider /> -->
+            
+        </p-card>
     </div>
 </div>
